@@ -1,1 +1,3041 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>KNOWLEDGE CONNECT</title>
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    "Noto Sans JP",
+    sans-serif;
+
+  background:#f5f8fb;
+  color:#405565;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+  min-height:100vh;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+
+  position:fixed;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:245px;
+
+  background:#ffffff;
+
+  border-right:1px solid #e4edf3;
+
+  padding:25px 16px;
+
+  display:flex;
+  flex-direction:column;
+
+  z-index:100;
+
+}
+
+
+/* logo */
+
+.logo{
+
+  padding:
+  5px 13px 27px;
+
+}
+
+.logo-main{
+
+  font-size:14px;
+
+  font-weight:700;
+
+  letter-spacing:3px;
+
+  color:#3e7698;
+
+}
+
+.logo-sub{
+
+  margin-top:5px;
+
+  font-size:9px;
+
+  letter-spacing:2px;
+
+  color:#a5b6c1;
+
+}
+
+
+/* navigation */
+
+.navigation{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:5px;
+
+}
+
+.nav-button{
+
+  width:100%;
+
+  border:0;
+
+  background:transparent;
+
+  color:#718493;
+
+  padding:12px 13px;
+
+  border-radius:12px;
+
+  text-align:left;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+  transition:.2s;
+
+  font-size:13px;
+
+}
+
+.nav-button:hover{
+
+  background:#f0f7fb;
+
+  color:#37799e;
+
+}
+
+.nav-button.active{
+
+  background:#e4f2fa;
+
+  color:#2e739c;
+
+  font-weight:600;
+
+}
+
+.nav-icon{
+
+  width:25px;
+
+  text-align:center;
+
+  font-size:17px;
+
+}
+
+
+/* group area */
+
+.group-area{
+
+  border-top:1px solid #edf2f5;
+
+  margin-top:25px;
+
+  padding:20px 10px;
+
+}
+
+.group-heading{
+
+  font-size:10px;
+
+  color:#a1afb8;
+
+  margin-bottom:10px;
+
+  letter-spacing:.5px;
+
+}
+
+.group-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:9px 2px;
+
+  font-size:11px;
+
+  color:#687c89;
+
+}
+
+.group-dot{
+
+  width:9px;
+
+  height:9px;
+
+  border-radius:50%;
+
+  background:#8bb8d2;
+
+}
+
+.group-status{
+
+  font-size:9px;
+
+  color:#aab7bf;
+
+}
+
+.create-group-link{
+
+  margin-top:6px;
+
+  border:0;
+
+  background:transparent;
+
+  color:#568cab;
+
+  font-size:11px;
+
+  cursor:pointer;
+
+  padding:5px 2px;
+
+}
+
+
+/* user */
+
+.sidebar-user{
+
+  margin-top:auto;
+
+  border-top:1px solid #edf2f5;
+
+  padding:16px 7px 3px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+.avatar{
+
+  width:37px;
+
+  height:37px;
+
+  border-radius:50%;
+
+  background:#dceef7;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  color:#4c819e;
+
+  font-size:13px;
+
+}
+
+.user-name{
+
+  font-size:12px;
+
+  color:#536b7b;
+
+}
+
+.user-type{
+
+  font-size:9px;
+
+  color:#a2afb8;
+
+  margin-top:2px;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+  margin-left:245px;
+
+  min-height:100vh;
+
+  padding:25px 42px 60px;
+
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+  max-width:1120px;
+
+  margin:0 auto 18px;
+
+  height:45px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-end;
+
+  gap:14px;
+
+}
+
+.notification{
+
+  width:35px;
+
+  height:35px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  border:1px solid #e6edf2;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:#78909f;
+
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+
+  display:none;
+
+  max-width:1120px;
+
+  margin:0 auto;
+
+}
+
+.page.active{
+
+  display:block;
+
+}
+
+.page-title{
+
+  font-size:27px;
+
+  color:#304f63;
+
+  font-weight:650;
+
+  margin-bottom:6px;
+
+}
+
+.page-description{
+
+  color:#91a1ac;
+
+  font-size:12px;
+
+  margin-bottom:25px;
+
+  line-height:1.8;
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+.hero{
+
+  min-height:235px;
+
+  border-radius:23px;
+
+  padding:40px;
+
+  margin-bottom:25px;
+
+  background:
+  linear-gradient(
+    110deg,
+    rgba(255,255,255,.95),
+    rgba(219,239,249,.83)
+  );
+
+  border:1px solid #dfebf2;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.hero::after{
+
+  content:"✦";
+
+  position:absolute;
+
+  right:70px;
+
+  top:45px;
+
+  font-size:85px;
+
+  color:rgba(89,153,188,.12);
+
+}
+
+.hero-title{
+
+  font-size:30px;
+
+  color:#35677f;
+
+  margin-bottom:12px;
+
+}
+
+.hero-text{
+
+  font-size:13px;
+
+  color:#728997;
+
+  line-height:2;
+
+}
+
+
+/* quick menu */
+
+.quick-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:14px;
+
+}
+
+.quick-card{
+
+  background:#fff;
+
+  border:1px solid #e2ebf1;
+
+  border-radius:17px;
+
+  padding:22px 18px;
+
+  transition:.2s;
+
+  cursor:pointer;
+
+}
+
+.quick-card:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+  0 10px 25px
+  rgba(65,110,135,.08);
+
+}
+
+.quick-icon{
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:12px;
+
+  background:#edf7fc;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  color:#4b8caf;
+
+  font-size:21px;
+
+  margin-bottom:14px;
+
+}
+
+.quick-card h3{
+
+  font-size:13px;
+
+  color:#496677;
+
+}
+
+.quick-card p{
+
+  font-size:10px;
+
+  color:#9ba9b2;
+
+  margin-top:5px;
+
+  line-height:1.6;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+  margin-top:30px;
+
+}
+
+.section-title{
+
+  font-size:15px;
+
+  color:#526e7e;
+
+  margin-bottom:12px;
+
+}
+
+.card{
+
+  background:#fff;
+
+  border:1px solid #e3ebf0;
+
+  border-radius:17px;
+
+  padding:20px;
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-card{
+
+  background:#fff;
+
+  border:1px solid #e2ebf0;
+
+  border-radius:18px;
+
+  padding:27px;
+
+  max-width:850px;
+
+}
+
+.form-group{
+
+  margin-bottom:20px;
+
+}
+
+.form-group label{
+
+  display:block;
+
+  font-size:11px;
+
+  font-weight:600;
+
+  color:#607886;
+
+  margin-bottom:7px;
+
+}
+
+input,
+textarea,
+select{
+
+  width:100%;
+
+  background:#fbfdfe;
+
+  border:1px solid #dce7ed;
+
+  border-radius:10px;
+
+  padding:12px 13px;
+
+  outline:none;
+
+  color:#49616f;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+  background:#fff;
+
+  border-color:#83bad5;
+
+}
+
+textarea{
+
+  min-height:150px;
+
+  resize:vertical;
+
+}
+
+
+/* media */
+
+.media-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:9px;
+
+}
+
+.media-button{
+
+  background:#f8fbfd;
+
+  border:1px solid #dfebf0;
+
+  border-radius:11px;
+
+  padding:15px 5px;
+
+  color:#688291;
+
+}
+
+.media-button:hover{
+
+  background:#eef7fb;
+
+}
+
+.media-button .media-icon{
+
+  font-size:20px;
+
+  margin-bottom:5px;
+
+}
+
+
+/* primary */
+
+.primary-button{
+
+  width:100%;
+
+  border:0;
+
+  background:#4c9aca;
+
+  color:#fff;
+
+  padding:13px;
+
+  border-radius:10px;
+
+  font-size:12px;
+
+  font-weight:600;
+
+}
+
+.primary-button:hover{
+
+  background:#398abd;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-container{
+
+  background:#fff;
+
+  border:1px solid #e1eaf0;
+
+  border-radius:16px;
+
+  padding:12px;
+
+}
+
+.search-row{
+
+  display:flex;
+
+  gap:9px;
+
+}
+
+.search-row input{
+
+  border:0;
+
+  background:transparent;
+
+}
+
+.search-button{
+
+  border:0;
+
+  background:#4b99c8;
+
+  color:#fff;
+
+  padding:0 22px;
+
+  border-radius:9px;
+
+}
+
+.tags{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:7px;
+
+  margin:12px 0 20px;
+
+}
+
+.tag{
+
+  border:0;
+
+  background:#edf7fc;
+
+  color:#5d859a;
+
+  border-radius:20px;
+
+  padding:7px 13px;
+
+  font-size:10px;
+
+}
+
+
+/* knowledge */
+
+.knowledge-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+}
+
+.knowledge-card{
+
+  background:#fff;
+
+  border:1px solid #e1eaf0;
+
+  border-radius:14px;
+
+  padding:16px;
+
+  display:flex;
+
+  gap:14px;
+
+  align-items:center;
+
+  cursor:pointer;
+
+}
+
+.knowledge-card:hover{
+
+  border-color:#b9d9e9;
+
+}
+
+.knowledge-image{
+
+  width:62px;
+
+  height:62px;
+
+  border-radius:10px;
+
+  background:#e8f4fa;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:25px;
+
+  flex-shrink:0;
+
+}
+
+.knowledge-card h3{
+
+  font-size:13px;
+
+  color:#466274;
+
+}
+
+.knowledge-card p{
+
+  font-size:10px;
+
+  color:#9aa8b1;
+
+  margin-top:4px;
+
+}
+
+.badge{
+
+  display:inline-block;
+
+  margin-top:7px;
+
+  padding:4px 8px;
+
+  border-radius:20px;
+
+  background:#edf7fc;
+
+  color:#5a8499;
+
+  font-size:9px;
+
+}
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+.chat-layout{
+
+  height:580px;
+
+  display:grid;
+
+  grid-template-columns:230px 1fr;
+
+  background:#fff;
+
+  border:1px solid #e0e9ef;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+}
+
+.chat-list{
+
+  border-right:1px solid #e5edf2;
+
+  padding:14px;
+
+}
+
+.chat-group{
+
+  padding:13px;
+
+  border-radius:10px;
+
+  font-size:11px;
+
+  cursor:pointer;
+
+  margin-bottom:5px;
+
+}
+
+.chat-group:hover,
+.chat-group.selected{
+
+  background:#edf7fc;
+
+  color:#34799d;
+
+}
+
+.chat-main{
+
+  display:flex;
+
+  flex-direction:column;
+
+}
+
+.chat-header{
+
+  padding:17px 20px;
+
+  border-bottom:1px solid #e5edf2;
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+.messages{
+
+  flex:1;
+
+  padding:20px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:11px;
+
+  overflow-y:auto;
+
+}
+
+.message{
+
+  max-width:68%;
+
+  padding:11px 14px;
+
+  background:#f1f5f8;
+
+  border-radius:13px;
+
+  font-size:11px;
+
+  line-height:1.7;
+
+}
+
+.message.mine{
+
+  align-self:flex-end;
+
+  background:#e5f4fb;
+
+}
+
+.chat-input{
+
+  border-top:1px solid #e5edf2;
+
+  padding:11px;
+
+  display:flex;
+
+  gap:8px;
+
+}
+
+.chat-input input{
+
+  border:0;
+
+}
+
+.chat-send{
+
+  width:43px;
+
+  border:0;
+
+  background:#4b99c8;
+
+  color:white;
+
+  border-radius:9px;
+
+}
+
+
+/* =====================================================
+   LEARNING
+===================================================== */
+
+.learning-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:15px;
+
+}
+
+.course{
+
+  background:#fff;
+
+  border:1px solid #e1eaf0;
+
+  border-radius:17px;
+
+  padding:18px;
+
+}
+
+.course-image{
+
+  height:130px;
+
+  border-radius:12px;
+
+  background:#eaf5fa;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:42px;
+
+  margin-bottom:14px;
+
+}
+
+.course h3{
+
+  font-size:14px;
+
+  color:#456374;
+
+}
+
+.course p{
+
+  font-size:10px;
+
+  color:#909fa9;
+
+  line-height:1.7;
+
+  margin:6px 0 12px;
+
+}
+
+.progress{
+
+  height:7px;
+
+  background:#edf1f3;
+
+  border-radius:10px;
+
+  overflow:hidden;
+
+}
+
+.progress-bar{
+
+  height:100%;
+
+  background:#82b8d1;
+
+}
+
+.course-button{
+
+  border:0;
+
+  background:#edf7fc;
+
+  color:#39799d;
+
+  padding:8px 13px;
+
+  border-radius:8px;
+
+  font-size:10px;
+
+  margin-top:12px;
+
+}
+
+
+/* =====================================================
+   GROUP
+===================================================== */
+
+.group-form{
+
+  max-width:700px;
+
+}
+
+.visibility{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+
+}
+
+.visibility-option{
+
+  border:1px solid #dfe8ed;
+
+  border-radius:12px;
+
+  padding:15px;
+
+  cursor:pointer;
+
+}
+
+.visibility-option:hover{
+
+  background:#f7fbfd;
+
+}
+
+.visibility-option input{
+
+  width:auto;
+
+  margin-right:7px;
+
+}
+
+.visibility-title{
+
+  font-size:12px;
+
+  color:#526d7d;
+
+}
+
+.visibility-description{
+
+  font-size:9px;
+
+  color:#9ba8b1;
+
+  margin-top:5px;
+
+}
+
+
+/* =====================================================
+   MOBILE BOTTOM NAV
+===================================================== */
+
+.mobile-nav{
+
+  display:none;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+  position:fixed;
+
+  right:22px;
+  bottom:22px;
+
+  background:#355f76;
+
+  color:#fff;
+
+  padding:12px 18px;
+
+  border-radius:11px;
+
+  font-size:11px;
+
+  opacity:0;
+
+  transform:translateY(10px);
+
+  transition:.25s;
+
+  z-index:500;
+
+}
+
+.toast.show{
+
+  opacity:1;
+
+  transform:translateY(0);
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:900px){
+
+  .sidebar{
+
+    width:210px;
+
+  }
+
+  .main{
+
+    margin-left:210px;
+
+    padding:
+    22px 25px 50px;
+
+  }
+
+  .quick-grid{
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px){
+
+  body{
+
+    padding-bottom:72px;
+
+  }
+
+  .sidebar{
+
+    display:none;
+
+  }
+
+  .main{
+
+    margin-left:0;
+
+    width:100%;
+
+    padding:
+    18px 14px 35px;
+
+  }
+
+  .topbar{
+
+    height:30px;
+
+    margin-bottom:13px;
+
+  }
+
+  .notification{
+
+    width:31px;
+
+    height:31px;
+
+  }
+
+  .hero{
+
+    min-height:210px;
+
+    padding:27px;
+
+  }
+
+  .hero-title{
+
+    font-size:23px;
+
+  }
+
+  .quick-grid{
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:9px;
+
+  }
+
+  .quick-card{
+
+    padding:17px 14px;
+
+  }
+
+  .quick-card h3{
+
+    font-size:11px;
+
+  }
+
+  .quick-card p{
+
+    font-size:9px;
+
+  }
+
+  .media-grid{
+
+    grid-template-columns:
+    1fr 1fr;
+
+  }
+
+  .learning-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .visibility{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .chat-layout{
+
+    grid-template-columns:1fr;
+
+    height:570px;
+
+  }
+
+  .chat-list{
+
+    display:none;
+
+  }
+
+  .page-title{
+
+    font-size:22px;
+
+  }
+
+  .search-row{
+
+    gap:5px;
+
+  }
+
+  .search-button{
+
+    padding:0 14px;
+
+  }
+
+
+  /* MOBILE NAV */
+
+  .mobile-nav{
+
+    position:fixed;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(5,1fr);
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:68px;
+
+    background:#fff;
+
+    border-top:1px solid #e2ebf0;
+
+    z-index:200;
+
+    padding:
+    6px 4px
+    env(safe-area-inset-bottom);
+
+  }
+
+  .mobile-nav button{
+
+    border:0;
+
+    background:transparent;
+
+    color:#8798a4;
+
+    font-size:8px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:3px;
+
+  }
+
+  .mobile-nav button.active{
+
+    color:#347ba2;
+
+    font-weight:600;
+
+  }
+
+  .mobile-icon{
+
+    font-size:19px;
+
+  }
+
+}
+
+
+/* =====================================================
+   VERY SMALL
+===================================================== */
+
+@media(max-width:380px){
+
+  .quick-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+  <div class="logo">
+
+    <div class="logo-main">
+      ✦ KNOWLEDGE
+    </div>
+
+    <div class="logo-sub">
+      CONNECT
+    </div>
+
+  </div>
+
+
+  <!-- MAIN NAVIGATION -->
+
+  <nav class="navigation">
+
+    <button
+      class="nav-button active"
+      data-page="home"
+      onclick="showPage('home')">
+
+      <span class="nav-icon">⌂</span>
+
+      <span>HOME</span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      data-page="input"
+      onclick="showPage('input')">
+
+      <span class="nav-icon">＋</span>
+
+      <span>知識を入れる</span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      data-page="search"
+      onclick="showPage('search')">
+
+      <span class="nav-icon">⌕</span>
+
+      <span>知識を取り出す</span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      data-page="chat"
+      onclick="showPage('chat')">
+
+      <span class="nav-icon">◌</span>
+
+      <span>グループチャット</span>
+
+    </button>
+
+
+    <button
+      class="nav-button"
+      data-page="learn"
+      onclick="showPage('learn')">
+
+      <span class="nav-icon">▣</span>
+
+      <span>学習・学び</span>
+
+    </button>
+
+  </nav>
+
+
+  <!-- GROUPS -->
+
+  <div class="group-area">
+
+    <div class="group-heading">
+      所属グループ
+    </div>
+
+
+    <div class="group-item">
+
+      <span class="group-dot"></span>
+
+      <span>学校</span>
+
+      <span class="group-status">
+        公開
+      </span>
+
+    </div>
+
+
+    <div class="group-item">
+
+      <span class="group-dot"></span>
+
+      <span>ものづくり</span>
+
+      <span class="group-status">
+        非公開
+      </span>
+
+    </div>
+
+
+    <div class="group-item">
+
+      <span class="group-dot"></span>
+
+      <span>地域</span>
+
+      <span class="group-status">
+        公開
+      </span>
+
+    </div>
+
+
+    <button
+      class="create-group-link"
+      data-page="create-group"
+      onclick="showPage('create-group')">
+
+      ＋ グループを作る
+
+    </button>
+
+  </div>
+
+
+  <!-- USER -->
+
+  <div class="sidebar-user">
+
+    <div class="avatar">
+      和
+    </div>
+
+    <div>
+
+      <div class="user-name">
+        ユーザー
+      </div>
+
+      <div class="user-type">
+        マイページ
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+  <!-- TOP BAR -->
+
+  <div class="topbar">
+
+    <button class="notification">
+      ♧
+    </button>
+
+    <div class="avatar">
+      和
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       HOME
+  =================================================== -->
+
+  <section
+    id="home"
+    class="page active">
+
+    <div class="hero">
+
+      <div>
+
+        <div class="hero-title">
+          知識を、つなぐ。
+        </div>
+
+        <div class="hero-text">
+
+          みんなの知識を、みんなでつなぎ、<br>
+          新しい学びへ。
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- QUICK MENU -->
+
+    <div class="quick-grid">
+
+
+      <div
+        class="quick-card"
+        onclick="showPage('input')">
+
+        <div class="quick-icon">
+          ＋
+        </div>
+
+        <h3>
+          知識を入れる
+        </h3>
+
+        <p>
+          自分の知識や経験を登録
+        </p>
+
+      </div>
+
+
+
+      <div
+        class="quick-card"
+        onclick="showPage('search')">
+
+        <div class="quick-icon">
+          ⌕
+        </div>
+
+        <h3>
+          知識を取り出す
+        </h3>
+
+        <p>
+          必要な知識を探す
+        </p>
+
+      </div>
+
+
+
+      <div
+        class="quick-card"
+        onclick="showPage('chat')">
+
+        <div class="quick-icon">
+          ◌
+        </div>
+
+        <h3>
+          グループチャット
+        </h3>
+
+        <p>
+          みんなで情報を共有
+        </p>
+
+      </div>
+
+
+
+      <div
+        class="quick-card"
+        onclick="showPage('learn')">
+
+        <div class="quick-icon">
+          ▣
+        </div>
+
+        <h3>
+          学習・学び
+        </h3>
+
+        <p>
+          知識を学習に活用
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- RECENT -->
+
+    <div class="section">
+
+      <div class="section-title">
+        最近の知識
+      </div>
+
+
+      <div class="knowledge-list">
+
+
+        <div class="knowledge-card">
+
+          <div class="knowledge-image">
+            🏠
+          </div>
+
+          <div>
+
+            <h3>
+              昔ながらの家の作り方
+            </h3>
+
+            <p>
+              さくらさん ・ 2時間前
+            </p>
+
+            <span class="badge">
+              ものづくり
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="knowledge-card">
+
+          <div class="knowledge-image">
+            🔨
+          </div>
+
+          <div>
+
+            <h3>
+              木造建築の基本知識
+            </h3>
+
+            <p>
+              たくみさん ・ 4時間前
+            </p>
+
+            <span class="badge">
+              技術
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       INPUT
+  =================================================== -->
+
+  <section
+    id="input"
+    class="page">
+
+    <h1 class="page-title">
+      知識を入れる
+    </h1>
+
+    <p class="page-description">
+      あなたが知っていること、経験したことをみんなと共有しましょう。
+    </p>
+
+
+    <div class="form-card">
+
+
+      <div class="form-group">
+
+        <label>
+          タイトル
+        </label>
+
+        <input
+          id="knowledgeTitle"
+          placeholder="例：味噌の作り方">
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label>
+          知識・内容
+        </label>
+
+        <textarea
+          id="knowledgeText"
+          placeholder="知っていることや経験を書いてください">
+        </textarea>
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label>
+          メディア
+        </label>
+
+
+        <div class="media-grid">
+
+
+          <button
+            class="media-button"
+            onclick="toast('写真を追加できます')">
+
+            <div class="media-icon">
+              ▧
+            </div>
+
+            写真
+
+          </button>
+
+
+
+          <button
+            class="media-button"
+            onclick="toast('動画を追加できます')">
+
+            <div class="media-icon">
+              ▶
+            </div>
+
+            動画
+
+          </button>
+
+
+
+          <button
+            class="media-button"
+            onclick="toast('音声を追加できます')">
+
+            <div class="media-icon">
+              ♫
+            </div>
+
+            音声
+
+          </button>
+
+
+
+          <button
+            class="media-button"
+            onclick="toast('ファイルを追加できます')">
+
+            <div class="media-icon">
+              ▤
+            </div>
+
+            ファイル
+
+          </button>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label>
+          登録するグループ
+        </label>
+
+        <select>
+
+          <option>
+            学校（公開）
+          </option>
+
+          <option>
+            ものづくり（非公開）
+          </option>
+
+          <option>
+            地域（公開）
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <button
+        class="primary-button"
+        onclick="saveKnowledge()">
+
+        知識を登録する
+
+      </button>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       SEARCH
+  =================================================== -->
+
+  <section
+    id="search"
+    class="page">
+
+    <h1 class="page-title">
+      知識を取り出す
+    </h1>
+
+    <p class="page-description">
+      キーワードや質問から、必要な知識を探しましょう。
+    </p>
+
+
+    <div class="search-container">
+
+      <div class="search-row">
+
+        <input
+          id="searchInput"
+          placeholder="知りたいことを入力してください">
+
+        <button
+          class="search-button"
+          onclick="searchKnowledge()">
+
+          検索
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="tags">
+
+      <button class="tag">
+        料理
+      </button>
+
+      <button class="tag">
+        建築
+      </button>
+
+      <button class="tag">
+        農業
+      </button>
+
+      <button class="tag">
+        歴史
+      </button>
+
+      <button class="tag">
+        技術
+      </button>
+
+    </div>
+
+
+
+    <div class="knowledge-list">
+
+
+      <div class="knowledge-card">
+
+        <div class="knowledge-image">
+          🍚
+        </div>
+
+        <div>
+
+          <h3>
+            味噌の作り方
+          </h3>
+
+          <p>
+            さくらさん ・ 地域
+          </p>
+
+          <span class="badge">
+            料理
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="knowledge-card">
+
+        <div class="knowledge-image">
+          🏯
+        </div>
+
+        <div>
+
+          <h3>
+            木造建築の基礎知識
+          </h3>
+
+          <p>
+            たくみさん ・ ものづくり
+          </p>
+
+          <span class="badge">
+            建築
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       CHAT
+  =================================================== -->
+
+  <section
+    id="chat"
+    class="page">
+
+    <h1 class="page-title">
+      グループチャット
+    </h1>
+
+    <p class="page-description">
+      グループのメンバーと知識や情報を共有できます。
+    </p>
+
+
+    <div class="chat-layout">
+
+
+      <div class="chat-list">
+
+
+        <div class="chat-group selected">
+          🏫 学校（公開）
+        </div>
+
+
+        <div class="chat-group">
+          🔨 ものづくり（非公開）
+        </div>
+
+
+        <div class="chat-group">
+          🌱 地域（公開）
+        </div>
+
+
+      </div>
+
+
+
+      <div class="chat-main">
+
+
+        <div class="chat-header">
+          🏫 学校（公開）
+        </div>
+
+
+
+        <div
+          id="messages"
+          class="messages">
+
+
+          <div class="message">
+            文化祭の準備について知っている人いますか？
+          </div>
+
+
+          <div class="message">
+            去年の資料があります！
+          </div>
+
+
+          <div class="message">
+            📎 文化祭準備資料.pdf
+          </div>
+
+
+          <div class="message mine">
+            ありがとうございます！
+          </div>
+
+
+        </div>
+
+
+
+        <div class="chat-input">
+
+          <input
+            id="chatText"
+            placeholder="メッセージを入力">
+
+
+          <button
+            class="chat-send"
+            onclick="sendMessage()">
+
+            ➤
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       LEARNING
+  =================================================== -->
+
+  <section
+    id="learn"
+    class="page">
+
+    <h1 class="page-title">
+      学習・学び
+    </h1>
+
+    <p class="page-description">
+      登録された知識を使って、自分の興味のあることを学びましょう。
+    </p>
+
+
+
+    <div class="search-container">
+
+      <div class="search-row">
+
+        <input
+          placeholder="学びたいことを入力してください">
+
+        <button
+          class="search-button"
+          onclick="toast('学習内容を探しています')">
+
+          探す
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="section">
+
+      <div class="section-title">
+        学習コース
+      </div>
+
+
+      <div class="learning-grid">
+
+
+        <div class="course">
+
+          <div class="course-image">
+            🏠
+          </div>
+
+          <h3>
+            木造建築の基礎を学ぶ
+          </h3>
+
+          <p>
+            木造建築の基本から実際の作業まで、
+            登録された知識を使って学びます。
+          </p>
+
+          <div class="progress">
+
+            <div
+              class="progress-bar"
+              style="width:40%">
+            </div>
+
+          </div>
+
+          <button
+            class="course-button"
+            onclick="toast('学習を開始しました')">
+
+            コースを続ける
+
+          </button>
+
+        </div>
+
+
+
+        <div class="course">
+
+          <div class="course-image">
+            🌱
+          </div>
+
+          <h3>
+            地域の文化を学ぶ
+          </h3>
+
+          <p>
+            地域に残る知識や文化について
+            登録された情報から学びます。
+          </p>
+
+          <div class="progress">
+
+            <div
+              class="progress-bar"
+              style="width:70%">
+            </div>
+
+          </div>
+
+          <button
+            class="course-button"
+            onclick="toast('学習を開始しました')">
+
+            コースを続ける
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <div class="section">
+
+      <div class="section-title">
+        学習コンテンツ
+      </div>
+
+
+      <div class="quick-grid">
+
+
+        <div class="quick-card">
+
+          <div class="quick-icon">
+            ▤
+          </div>
+
+          <h3>
+            要約
+          </h3>
+
+          <p>
+            知識を分かりやすくまとめる
+          </p>
+
+        </div>
+
+
+        <div class="quick-card">
+
+          <div class="quick-icon">
+            ▣
+          </div>
+
+          <h3>
+            教材
+          </h3>
+
+          <p>
+            手順書などを使って学ぶ
+          </p>
+
+        </div>
+
+
+        <div class="quick-card">
+
+          <div class="quick-icon">
+            ✓
+          </div>
+
+          <h3>
+            クイズ
+          </h3>
+
+          <p>
+            学んだ内容を確認する
+          </p>
+
+        </div>
+
+
+        <div class="quick-card">
+
+          <div class="quick-icon">
+            ?
+          </div>
+
+          <h3>
+            AIに質問
+          </h3>
+
+          <p>
+            分からないことを質問する
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       CREATE GROUP
+  =================================================== -->
+
+  <section
+    id="create-group"
+    class="page">
+
+    <h1 class="page-title">
+      グループを作る
+    </h1>
+
+    <p class="page-description">
+      知識を共有したいグループを作成します。
+    </p>
+
+
+    <div class="form-card group-form">
+
+
+      <div class="form-group">
+
+        <label>
+          グループ名
+        </label>
+
+        <input
+          id="groupName"
+          placeholder="例：○○高校 文化祭">
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label>
+          グループについて
+        </label>
+
+        <textarea
+          placeholder="グループの目的などを入力してください">
+        </textarea>
+
+      </div>
+
+
+
+      <div class="form-group">
+
+        <label>
+          公開設定
+        </label>
+
+
+        <div class="visibility">
+
+
+          <label class="visibility-option">
+
+            <div class="visibility-title">
+
+              <input
+                type="radio"
+                name="visibility"
+                value="public"
+                checked>
+
+              🔓 公開
+
+            </div>
+
+            <div class="visibility-description">
+
+              誰でもグループを見ることができます。
+
+            </div>
+
+          </label>
+
+
+
+          <label class="visibility-option">
+
+            <div class="visibility-title">
+
+              <input
+                type="radio"
+                name="visibility"
+                value="private">
+
+              🔒 非公開
+
+            </div>
+
+            <div class="visibility-description">
+
+              参加しているメンバーだけが見ることができます。
+
+            </div>
+
+          </label>
+
+
+        </div>
+
+      </div>
+
+
+
+      <button
+        class="primary-button"
+        onclick="createGroup()">
+
+        グループを作成する
+
+      </button>
+
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     MOBILE NAVIGATION
+===================================================== -->
+
+<nav class="mobile-nav">
+
+
+  <button
+    class="active"
+    data-page="home"
+    onclick="showPage('home')">
+
+    <span class="mobile-icon">
+      ⌂
+    </span>
+
+    HOME
+
+  </button>
+
+
+
+  <button
+    data-page="input"
+    onclick="showPage('input')">
+
+    <span class="mobile-icon">
+      ＋
+    </span>
+
+    知識を入れる
+
+  </button>
+
+
+
+  <button
+    data-page="search"
+    onclick="showPage('search')">
+
+    <span class="mobile-icon">
+      ⌕
+    </span>
+
+    知識を探す
+
+  </button>
+
+
+
+  <button
+    data-page="chat"
+    onclick="showPage('chat')">
+
+    <span class="mobile-icon">
+      ◌
+    </span>
+
+    チャット
+
+  </button>
+
+
+
+  <button
+    data-page="learn"
+    onclick="showPage('learn')">
+
+    <span class="mobile-icon">
+      ▣
+    </span>
+
+    学習
+
+  </button>
+
+
+</nav>
+
+
+
+<!-- TOAST -->
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   PAGE CHANGE
+===================================================== */
+
+function showPage(pageId){
+
+  /* すべてのページを隠す */
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.classList.remove("active");
+
+    });
+
+
+  /* 選択したページを表示 */
+
+  const target =
+    document.getElementById(pageId);
+
+  if(target){
+
+    target.classList.add("active");
+
+  }
+
+
+  /* PCナビ */
+
+  document
+    .querySelectorAll(".nav-button")
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+      if(button.dataset.page === pageId){
+
+        button.classList.add("active");
+
+      }
+
+    });
+
+
+  /* スマホナビ */
+
+  document
+    .querySelectorAll(".mobile-nav button")
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+      if(button.dataset.page === pageId){
+
+        button.classList.add("active");
+
+      }
+
+    });
+
+
+  /* ページ上部へ */
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function toast(message){
+
+  const box =
+    document.getElementById("toast");
+
+  box.textContent = message;
+
+  box.classList.add("show");
+
+  setTimeout(() => {
+
+    box.classList.remove("show");
+
+  },2200);
+
+}
+
+
+
+/* =====================================================
+   KNOWLEDGE
+===================================================== */
+
+function saveKnowledge(){
+
+  const title =
+    document
+      .getElementById("knowledgeTitle")
+      .value
+      .trim();
+
+  const text =
+    document
+      .getElementById("knowledgeText")
+      .value
+      .trim();
+
+
+  if(!title || !text){
+
+    toast("タイトルと内容を入力してください");
+
+    return;
+
+  }
+
+
+  toast("知識を登録しました！");
+
+
+  document
+    .getElementById("knowledgeTitle")
+    .value = "";
+
+  document
+    .getElementById("knowledgeText")
+    .value = "";
+
+}
+
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchKnowledge(){
+
+  const keyword =
+    document
+      .getElementById("searchInput")
+      .value
+      .trim();
+
+
+  if(!keyword){
+
+    toast("知りたいことを入力してください");
+
+    return;
+
+  }
+
+
+  toast(
+    "「" + keyword + "」を検索しました"
+  );
+
+}
+
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+function sendMessage(){
+
+  const input =
+    document.getElementById("chatText");
+
+  const text =
+    input.value.trim();
+
+
+  if(!text){
+
+    return;
+
+  }
+
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message mine";
+
+  message.textContent =
+    text;
+
+
+  const messages =
+    document.getElementById("messages");
+
+  messages.appendChild(message);
+
+
+  input.value = "";
+
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   CREATE GROUP
+===================================================== */
+
+function createGroup(){
+
+  const name =
+    document
+      .getElementById("groupName")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    toast("グループ名を入力してください");
+
+    return;
+
+  }
+
+
+  const visibility =
+    document
+      .querySelector(
+        'input[name="visibility"]:checked'
+      )
+      .value;
+
+
+  const type =
+    visibility === "public"
+      ? "公開"
+      : "非公開";
+
+
+  toast(
+    "「" +
+    name +
+    "」を" +
+    type +
+    "グループとして作成しました"
+  );
+
+
+  document
+    .getElementById("groupName")
+    .value = "";
+
+}
+
+</script>
+
+
+</body>
+</html>
