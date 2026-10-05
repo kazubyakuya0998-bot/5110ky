@@ -672,13 +672,25 @@ function resetInputForm() {
 // ------------------------------------
 // 知識検索 & 詳細表示
 // ------------------------------------
+function normalizeSearchText(text) {
+  return String(text || '').normalize('NFKC').toLowerCase();
+}
+
 function searchKnowledge() {
-  let q = (searchBox.value || '').toLowerCase();
+  // 「い」のような1文字でも、文章の途中に入っていれば検索結果に出す
+  const q = normalizeSearchText(searchBox.value).trim();
+
   let list = data.knowledge.filter(x => {
     let grp = data.groups.find(g => g.id === x.groupId);
     let gName = grp ? grp.name : '';
     let tagsStr = (x.tags || []).join(' ');
-    return (x.title + x.content + tagsStr + gName).toLowerCase().includes(q);
+
+    const searchableText = normalizeSearchText(
+      [x.title, x.content, tagsStr, gName].join(' ')
+    );
+
+    // 空欄なら全件表示。入力した文字列が文章のどこかにあればOK。
+    return q === '' || searchableText.includes(q);
   });
 
   results.innerHTML = list.length ? list.map(x => {
