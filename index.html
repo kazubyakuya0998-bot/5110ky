@@ -49,7 +49,7 @@ button{cursor:pointer}
 .hero-art{position:absolute;right:25px;top:18px;width:44%;height:150px;border-radius:10px;background:linear-gradient(160deg,var(--art1),var(--art2) 46%,var(--art3));opacity:.85}
 .hero-art:before{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,transparent,var(--primary))}
 .hero-art:after{content:"✦ つなぐ ひろげる 学びの輪t✦";white-space:pre;position:absolute;right:25px;top:30px;color:white;font-weight:700;font-size:18px;line-height:1.35;text-shadow:0 1px 5px #56859b}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:16px 0 22px}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin:16px 0 22px}
 .quick-card{border:1px solid var(--border);background:var(--surface);border-radius:12px;padding:19px 14px;box-shadow:var(--shadow);text-align:center;cursor:pointer}
 .qicon{width:37px;height:37px;border:2px solid var(--primary);border-radius:50%;display:grid;place-items:center;margin:0 auto 10px;color:#2686b5;font-size:18px}
 .quick-card b{font-size:12px}.quick-card p{font-size:10px;color:var(--muted);line-height:1.6;margin:7px 0 0}
@@ -102,6 +102,29 @@ textarea{min-height:120px;resize:vertical}
 .member-chip{display:inline-flex;align-items:center;gap:6px;background:var(--primary2);padding:4px 10px;border-radius:99px;font-size:11px;margin:3px}
 .member-chip button{border:0;background:transparent;color:#e74c3c;font-weight:700;padding:0 2px}
 
+/* グループ別 TODO・メモ・予定 */
+.group-space-head{display:flex;gap:12px;align-items:end;flex-wrap:wrap}
+.group-space-head .group-select-wrap{flex:1;min-width:220px}
+.group-badge{display:inline-flex;align-items:center;gap:8px;background:var(--primary2);border-radius:99px;padding:7px 11px;font-size:11px;margin-bottom:8px}
+.workspace-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+.workspace-tab{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:9px;padding:9px 14px;font-size:11px;font-weight:700}
+.workspace-tab:hover,.workspace-tab.active{background:var(--primary2);border-color:var(--primary);color:#237ba8}
+.workspace-panel{display:none}.workspace-panel.active{display:block}
+.tool-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:15px}
+.tool-list{display:grid;gap:8px}
+.tool-item{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:12px;display:flex;gap:10px;align-items:flex-start}
+.tool-item.done{opacity:.6}.tool-item.done .tool-title{text-decoration:line-through}
+.check-btn{width:22px;height:22px;border:1px solid var(--border);background:var(--surface2);border-radius:6px;flex:none}
+.check-btn.checked{background:var(--primary);color:#fff;border-color:var(--primary)}
+.tool-content{flex:1;min-width:0}.tool-title{font-size:12px;font-weight:700}.tool-meta{font-size:9px;color:var(--muted);margin-top:5px;line-height:1.5}
+.tool-actions{display:flex;gap:5px;flex:none}.tool-actions button{border:0;background:var(--surface2);border-radius:6px;padding:5px 7px;font-size:9px;color:var(--muted)}
+.tool-actions button:hover{background:var(--primary2);color:var(--text)}
+.empty-state{padding:28px 10px;text-align:center;color:var(--muted);font-size:11px;border:1px dashed var(--border);border-radius:10px}
+.schedule-date{font-size:10px;color:var(--primary);font-weight:700;margin-bottom:3px}.memo-body{font-size:10px;color:var(--muted);line-height:1.7;white-space:pre-wrap}
+.workspace-chat{display:grid;grid-template-columns:210px 1fr;gap:12px}.workspace-messages{height:430px;overflow:auto;padding:5px}.workspace-chat-window{height:520px;display:flex;flex-direction:column}
+@media(max-width:900px){.tool-grid{grid-template-columns:1fr}.workspace-chat{grid-template-columns:1fr}}
+@media(max-width:650px){.workspace-tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}.workspace-tab{white-space:nowrap}.workspace-chat-window{height:470px}}
+
 .mobile-colors{display:none}
 .mobile-nav{display:none}
 @media(max-width:900px){.sidebar{width:205px}.main{margin-left:205px}.quick{grid-template-columns:repeat(2,1fr)}.columns,.two{grid-template-columns:1fr}.chat-layout{grid-template-columns:1fr}}
@@ -120,6 +143,7 @@ textarea{min-height:120px;resize:vertical}
   <button onclick="showPage('input',this)">📝 知識をいれる</button>
   <button onclick="showPage('search',this)">📖 知識を取り出す</button>
   <button onclick="showPage('chat',this)">✉️ グループチャット</button>
+  <button onclick="showPage('groupSpace',this)">📋 グループのTODO・メモ・予定</button>
  </nav>
 
  <div class="side-line"></div>
@@ -150,6 +174,7 @@ textarea{min-height:120px;resize:vertical}
   <div class="quick-card" onclick="showPage('search')"><div class="qicon">📖</div><b>知識を取り出す</b><p>キーワードで検索して、<br>詳細を見られます。</p></div>
   <div class="quick-card" onclick="showPage('chat')"><div class="qicon">✉️</div><b>グループチャット</b><p>グループのメンバーと<br>情報を共有できます。</p></div>
   <div class="quick-card" onclick="showPage('groups')"><div class="qicon">⚙️</div><b>グループ設定</b><p>設定・メンバー追加を<br>行えます。</p></div>
+  <div class="quick-card" onclick="showPage('groupSpace')"><div class="qicon">📋</div><b>グループの予定</b><p>TODO・メモ・予定を<br>グループ別に管理。</p></div>
  </div>
  <div class="columns"><div class="card"><div class="card-title"><h2>最近の投稿</h2><span class="more" onclick="showPage('search')">もっと見る ›</span></div><div id="recent"></div></div><div class="card"><div class="card-title"><h2>あなたのグループ</h2></div><div id="homeGroupList"></div></div></div>
 </section>
@@ -217,6 +242,84 @@ textarea{min-height:120px;resize:vertical}
  </div>
 </section>
 
+<!-- グループ別 TODO・メモ・予定 -->
+<section id="groupSpace" class="page">
+ <div class="page-head"><h1>グループの管理スペース</h1><p>グループごとに、知識・TODO・メモ・予定・チャットをまとめて管理できます。</p></div>
+ <div class="card">
+   <div class="group-space-head">
+     <div class="group-select-wrap">
+       <label>グループを選択</label>
+       <select id="workspaceGroupSelect" onchange="changeWorkspaceGroup(this.value)"></select>
+     </div>
+     <div id="workspaceGroupBadge" class="group-badge">✦ グループ</div>
+   </div>
+   <div class="workspace-tabs">
+     <button class="workspace-tab active" data-tab="knowledge" onclick="switchWorkspaceTab('knowledge')">📖 知識</button>
+     <button class="workspace-tab" data-tab="todo" onclick="switchWorkspaceTab('todo')">☑️ TODO</button>
+     <button class="workspace-tab" data-tab="memo" onclick="switchWorkspaceTab('memo')">📝 メモ</button>
+     <button class="workspace-tab" data-tab="schedule" onclick="switchWorkspaceTab('schedule')">📅 予定</button>
+     <button class="workspace-tab" data-tab="chat" onclick="switchWorkspaceTab('chat')">💬 チャット</button>
+   </div>
+
+   <div id="workspaceKnowledge" class="workspace-panel active">
+     <div class="card-title"><h2>このグループの知識</h2><span class="more" onclick="showPage('input')">＋知識を追加</span></div>
+     <div id="workspaceKnowledgeList" class="tool-list"></div>
+   </div>
+
+   <div id="workspaceTodo" class="workspace-panel">
+     <div class="tool-grid">
+       <div class="card">
+         <div class="card-title"><h2 id="todoFormTitle">TODOを追加</h2></div>
+         <input type="hidden" id="editTodoId">
+         <label>やること</label><input id="todoTitle" placeholder="例：文化祭の資料を確認する">
+         <label style="margin-top:12px">期限</label><input id="todoDue" type="date">
+         <label style="margin-top:12px">メモ</label><textarea id="todoNote" style="min-height:80px" placeholder="補足があれば入力"></textarea>
+         <div style="margin-top:12px"><button class="btn" onclick="saveTodo()">保存</button><button id="todoCancel" class="btn light" style="display:none;margin-left:6px" onclick="resetTodoForm()">キャンセル</button></div>
+       </div>
+       <div class="card"><div class="card-title"><h2>TODO一覧</h2><span id="todoCount" class="tag">0件</span></div><div id="todoList" class="tool-list"></div></div>
+     </div>
+   </div>
+
+   <div id="workspaceMemo" class="workspace-panel">
+     <div class="tool-grid">
+       <div class="card">
+         <div class="card-title"><h2 id="memoFormTitle">メモを追加</h2></div>
+         <input type="hidden" id="editMemoId">
+         <label>タイトル</label><input id="memoTitle" placeholder="例：先生から聞いたこと">
+         <label style="margin-top:12px">内容</label><textarea id="memoContent" placeholder="自由にメモしてください"></textarea>
+         <div style="margin-top:12px"><button class="btn" onclick="saveMemo()">保存</button><button id="memoCancel" class="btn light" style="display:none;margin-left:6px" onclick="resetMemoForm()">キャンセル</button></div>
+       </div>
+       <div class="card"><div class="card-title"><h2>メモ一覧</h2><span id="memoCount" class="tag">0件</span></div><div id="memoList" class="tool-list"></div></div>
+     </div>
+   </div>
+
+   <div id="workspaceSchedule" class="workspace-panel">
+     <div class="tool-grid">
+       <div class="card">
+         <div class="card-title"><h2 id="scheduleFormTitle">予定を追加</h2></div>
+         <input type="hidden" id="editScheduleId">
+         <label>予定</label><input id="scheduleTitle" placeholder="例：グループミーティング">
+         <div class="form-row" style="margin-top:12px"><div><label>日付</label><input id="scheduleDate" type="date"></div><div><label>時間</label><input id="scheduleTime" type="time"></div></div>
+         <label style="margin-top:12px">場所・メモ</label><textarea id="scheduleNote" style="min-height:80px" placeholder="場所や持ち物など"></textarea>
+         <div style="margin-top:12px"><button class="btn" onclick="saveSchedule()">保存</button><button id="scheduleCancel" class="btn light" style="display:none;margin-left:6px" onclick="resetScheduleForm()">キャンセル</button></div>
+       </div>
+       <div class="card"><div class="card-title"><h2>予定一覧</h2><span id="scheduleCount" class="tag">0件</span></div><div id="scheduleList" class="tool-list"></div></div>
+     </div>
+   </div>
+
+   <div id="workspaceChat" class="workspace-panel">
+     <div class="workspace-chat">
+       <div class="card chat-list" id="workspaceChatGroupList"></div>
+       <div class="card workspace-chat-window">
+         <div class="card-title"><h2 id="workspaceChatTitle">チャット</h2></div>
+         <div id="workspaceMessages" class="workspace-messages"></div>
+         <div class="chat-input"><input id="workspaceChatInput" placeholder="このグループにメッセージ…"><button class="btn" onclick="sendWorkspaceChat()">➤</button></div>
+       </div>
+     </div>
+   </div>
+ </div>
+</section>
+
 <!-- グループ管理・設定 -->
 <section id="groups" class="page">
  <div class="page-head"><h1>グループ管理・作成</h1><p>新規グループ作成や、既存グループの設定・メンバー編集を行えます。</p></div>
@@ -264,7 +367,8 @@ textarea{min-height:120px;resize:vertical}
   <button onclick="showPage('input',this)">＋<br>入れる</button>
   <button onclick="showPage('search',this)">⌕<br>探す</button>
   <button onclick="showPage('chat',this)">◌<br>チャット</button>
-  <button onclick="showPage('groups',this)">⚙️<br>グループ</button>
+  <button onclick="showPage('groupSpace',this)">📋<br>管理</button>
+  <button onclick="showPage('groups',this)">⚙️<br>設定</button>
 </nav>
 
 <!-- 知識詳細閲覧モーダル -->
@@ -326,10 +430,16 @@ const defaultGroups = [
 let data = JSON.parse(localStorage.getItem(STORE) || 'null');
 
 if (!data) {
-  data = { knowledge: [], groups: defaultGroups, chat: [] };
+  data = { knowledge: [], groups: defaultGroups, chat: [], todos: [], memos: [], schedules: [] };
   persist();
 } else {
   // 初期グループが存在しない場合は補完
+  data.groups = data.groups || [];
+  data.chat = data.chat || [];
+  data.knowledge = data.knowledge || [];
+  data.todos = data.todos || [];
+  data.memos = data.memos || [];
+  data.schedules = data.schedules || [];
   defaultGroups.forEach(dg => {
     if (!data.groups.some(g => g.id === dg.id || g.name === dg.name)) {
       data.groups.push(dg);
@@ -341,6 +451,8 @@ if (!data) {
 let pendingAttachments = [];
 let selectedGroupIcon = '🎓';
 let currentChatGroupId = data.groups[0]?.id || 'g_school';
+let currentWorkspaceGroupId = data.groups[0]?.id || 'g_school';
+let currentWorkspaceTab = 'knowledge';
 
 // 音声録音関連
 let mediaRecorder = null;
@@ -384,6 +496,7 @@ function showPage(id, btn) {
   if (id === 'search') searchKnowledge();
   if (id === 'chat') renderChat();
   if (id === 'groups') renderGroupsManage();
+  if (id === 'groupSpace') renderGroupWorkspace();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -648,10 +761,14 @@ function renderRecent() {
 function populateGroupDropdowns() {
   let opts = data.groups.map(g => `<option value="${g.id}">${esc(g.icon + ' ' + g.name + (g.visibility==='private'?' (非公開)':''))}</option>`).join('');
   kgroup.innerHTML = opts;
+  if (typeof workspaceGroupSelect !== 'undefined' && workspaceGroupSelect) {
+    workspaceGroupSelect.innerHTML = opts;
+    workspaceGroupSelect.value = currentWorkspaceGroupId;
+  }
 
   // サイドバーグループ一覧
   sideGroupList.innerHTML = data.groups.map(g => `
-    <button onclick="setGroupChat('${g.id}')">
+    <button onclick="openGroupSpace('${g.id}')">
       <span>${esc(g.icon)} ${esc(g.name)}</span>
       <small style="font-size:9px">${(g.members||[]).length}人</small>
     </button>
@@ -765,12 +882,144 @@ function deleteGroup() {
   let gId = editGroupId.value;
   if (confirm('本当にこのグループを削除しますか？')) {
     data.groups = data.groups.filter(g => g.id !== gId);
+    data.todos = data.todos.filter(x => x.groupId !== gId);
+    data.memos = data.memos.filter(x => x.groupId !== gId);
+    data.schedules = data.schedules.filter(x => x.groupId !== gId);
+    data.knowledge = data.knowledge.filter(x => x.groupId !== gId);
+    data.chat = data.chat.filter(x => x.groupId !== gId);
+    if (!data.groups.length) {
+      data.groups.push({id:'g_default',name:'新しいグループ',desc:'',visibility:'public',icon:'📚',members:['和樹']});
+    }
+    currentWorkspaceGroupId = data.groups[0].id;
+    currentChatGroupId = data.groups[0].id;
     persist();
     closeModal('groupEditModal');
     renderGroupsManage();
     toast('グループを削除しました');
   }
 }
+
+// ------------------------------------
+// グループ別 TODO・メモ・予定
+// ------------------------------------
+function getWorkspaceGroup() {
+  return data.groups.find(g => g.id === currentWorkspaceGroupId) || data.groups[0];
+}
+
+function openGroupSpace(gId) {
+  currentWorkspaceGroupId = gId;
+  currentWorkspaceTab = 'knowledge';
+  showPage('groupSpace');
+}
+
+function changeWorkspaceGroup(gId) {
+  currentWorkspaceGroupId = gId;
+  currentWorkspaceTab = 'knowledge';
+  switchWorkspaceTab('knowledge');
+  renderGroupWorkspace();
+}
+
+function switchWorkspaceTab(tab) {
+  currentWorkspaceTab = tab;
+  document.querySelectorAll('.workspace-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.workspace-panel').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('workspace' + tab.charAt(0).toUpperCase() + tab.slice(1));
+  if (target) target.classList.add('active');
+  renderWorkspacePanel();
+}
+
+function renderGroupWorkspace() {
+  if (!data.groups.length) return;
+  if (!data.groups.some(g => g.id === currentWorkspaceGroupId)) currentWorkspaceGroupId = data.groups[0].id;
+  populateGroupDropdowns();
+  if (workspaceGroupSelect) workspaceGroupSelect.value = currentWorkspaceGroupId;
+  const g = getWorkspaceGroup();
+  workspaceGroupBadge.innerHTML = `${esc(g.icon)} ${esc(g.name)} <span style="font-size:9px;color:var(--muted)">${(g.members||[]).length}人</span>`;
+  switchWorkspaceTab(currentWorkspaceTab);
+}
+
+function renderWorkspacePanel() {
+  renderWorkspaceKnowledge();
+  renderTodos();
+  renderMemos();
+  renderSchedules();
+  renderWorkspaceChat();
+}
+
+function renderWorkspaceKnowledge() {
+  const list = data.knowledge.filter(x => x.groupId === currentWorkspaceGroupId);
+  workspaceKnowledgeList.innerHTML = list.length ? list.map(x => `
+    <div class="tool-item" onclick="openKnowledgeDetail('${x.id}')" style="cursor:pointer">
+      <div class="thumb">📖</div><div class="tool-content"><div class="tool-title">${esc(x.title)}</div><div class="tool-meta">${esc(x.date || '')} ${(x.tags||[]).map(t => '#'+esc(t)).join(' ')}</div></div>
+    </div>`).join('') : '<div class="empty-state">このグループにはまだ知識がありません。<br>「＋知識を追加」から登録できます。</div>';
+}
+
+function saveTodo() {
+  const title = todoTitle.value.trim();
+  if (!title) { toast('TODOを入力してください'); return; }
+  const id = editTodoId.value;
+  const item = { id: id || 'todo_' + Date.now(), groupId: currentWorkspaceGroupId, title, due: todoDue.value, note: todoNote.value.trim(), done: false, createdAt: new Date().toISOString() };
+  if (id) {
+    const old = data.todos.find(x => x.id === id);
+    if (old) Object.assign(old, item, {done:old.done});
+  } else data.todos.push(item);
+  persist(); resetTodoForm(); renderTodos(); toast(id ? 'TODOを更新しました' : 'TODOを追加しました');
+}
+
+function renderTodos() {
+  const list = data.todos.filter(x => x.groupId === currentWorkspaceGroupId).sort((a,b) => (a.done-b.done) || String(a.due||'9999').localeCompare(String(b.due||'9999')));
+  todoCount.textContent = list.length + '件';
+  todoList.innerHTML = list.length ? list.map(x => `
+    <div class="tool-item ${x.done?'done':''}">
+      <button class="check-btn ${x.done?'checked':''}" onclick="toggleTodo('${x.id}')">${x.done?'✓':''}</button>
+      <div class="tool-content"><div class="tool-title">${esc(x.title)}</div><div class="tool-meta">${x.due ? '期限：'+esc(x.due) : '期限なし'}${x.note ? ' ・ '+esc(x.note) : ''}</div></div>
+      <div class="tool-actions"><button onclick="editTodo('${x.id}')">編集</button><button onclick="deleteTodo('${x.id}')">削除</button></div>
+    </div>`).join('') : '<div class="empty-state">TODOはありません。<br>左側から新しく追加できます。</div>';
+}
+
+function toggleTodo(id) { const x=data.todos.find(v=>v.id===id); if(!x)return; x.done=!x.done; persist(); renderTodos(); }
+function editTodo(id) { const x=data.todos.find(v=>v.id===id); if(!x)return; editTodoId.value=x.id; todoTitle.value=x.title; todoDue.value=x.due||''; todoNote.value=x.note||''; todoFormTitle.textContent='TODOを編集'; todoCancel.style.display='inline-block'; switchWorkspaceTab('todo'); }
+function deleteTodo(id) { if(!confirm('このTODOを削除しますか？'))return; data.todos=data.todos.filter(x=>x.id!==id); persist(); renderTodos(); toast('TODOを削除しました'); }
+function resetTodoForm() { editTodoId.value=''; todoTitle.value=''; todoDue.value=''; todoNote.value=''; todoFormTitle.textContent='TODOを追加'; todoCancel.style.display='none'; }
+
+function saveMemo() {
+  const title = memoTitle.value.trim() || '無題のメモ';
+  const content = memoContent.value.trim();
+  if (!content) { toast('メモの内容を入力してください'); return; }
+  const id = editMemoId.value;
+  const item = { id:id || 'memo_'+Date.now(), groupId:currentWorkspaceGroupId, title, content, updatedAt:new Date().toLocaleString('ja-JP') };
+  if(id){const old=data.memos.find(x=>x.id===id);if(old)Object.assign(old,item);}else data.memos.push(item);
+  persist(); resetMemoForm(); renderMemos(); toast(id?'メモを更新しました':'メモを追加しました');
+}
+function renderMemos() {
+  const list=data.memos.filter(x=>x.groupId===currentWorkspaceGroupId).slice().reverse(); memoCount.textContent=list.length+'件';
+  memoList.innerHTML=list.length?list.map(x=>`<div class="tool-item"><div class="thumb">📝</div><div class="tool-content"><div class="tool-title">${esc(x.title)}</div><div class="memo-body">${esc(x.content)}</div><div class="tool-meta">更新：${esc(x.updatedAt||'')}</div></div><div class="tool-actions"><button onclick="editMemo('${x.id}')">編集</button><button onclick="deleteMemo('${x.id}')">削除</button></div></div>`).join(''):'<div class="empty-state">メモはありません。<br>左側から新しく追加できます。</div>';
+}
+function editMemo(id){const x=data.memos.find(v=>v.id===id);if(!x)return;editMemoId.value=x.id;memoTitle.value=x.title;memoContent.value=x.content;memoFormTitle.textContent='メモを編集';memoCancel.style.display='inline-block';switchWorkspaceTab('memo');}
+function deleteMemo(id){if(!confirm('このメモを削除しますか？'))return;data.memos=data.memos.filter(x=>x.id!==id);persist();renderMemos();toast('メモを削除しました');}
+function resetMemoForm(){editMemoId.value='';memoTitle.value='';memoContent.value='';memoFormTitle.textContent='メモを追加';memoCancel.style.display='none';}
+
+function saveSchedule() {
+  const title=scheduleTitle.value.trim(); if(!title){toast('予定名を入力してください');return;}
+  if(!scheduleDate.value){toast('日付を入力してください');return;}
+  const id=editScheduleId.value; const item={id:id||'sch_'+Date.now(),groupId:currentWorkspaceGroupId,title,date:scheduleDate.value,time:scheduleTime.value,note:scheduleNote.value.trim()};
+  if(id){const old=data.schedules.find(x=>x.id===id);if(old)Object.assign(old,item);}else data.schedules.push(item);
+  persist();resetScheduleForm();renderSchedules();toast(id?'予定を更新しました':'予定を追加しました');
+}
+function renderSchedules(){
+  const list=data.schedules.filter(x=>x.groupId===currentWorkspaceGroupId).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||'')||(a.time||'').localeCompare(b.time||'')); scheduleCount.textContent=list.length+'件';
+  scheduleList.innerHTML=list.length?list.map(x=>`<div class="tool-item"><div class="thumb">📅</div><div class="tool-content"><div class="schedule-date">${esc(x.date)}${x.time?' ・ '+esc(x.time):''}</div><div class="tool-title">${esc(x.title)}</div><div class="tool-meta">${x.note?esc(x.note):'メモなし'}</div></div><div class="tool-actions"><button onclick="editSchedule('${x.id}')">編集</button><button onclick="deleteSchedule('${x.id}')">削除</button></div></div>`).join(''):'<div class="empty-state">予定はありません。<br>左側から新しく追加できます。</div>';
+}
+function editSchedule(id){const x=data.schedules.find(v=>v.id===id);if(!x)return;editScheduleId.value=x.id;scheduleTitle.value=x.title;scheduleDate.value=x.date||'';scheduleTime.value=x.time||'';scheduleNote.value=x.note||'';scheduleFormTitle.textContent='予定を編集';scheduleCancel.style.display='inline-block';switchWorkspaceTab('schedule');}
+function deleteSchedule(id){if(!confirm('この予定を削除しますか？'))return;data.schedules=data.schedules.filter(x=>x.id!==id);persist();renderSchedules();toast('予定を削除しました');}
+function resetScheduleForm(){editScheduleId.value='';scheduleTitle.value='';scheduleDate.value='';scheduleTime.value='';scheduleNote.value='';scheduleFormTitle.textContent='予定を追加';scheduleCancel.style.display='none';}
+
+function renderWorkspaceChat(){
+  const groups=data.groups; workspaceChatGroupList.innerHTML=groups.map(g=>`<button class="chat-group ${g.id===currentWorkspaceGroupId?'active':''}" onclick="changeWorkspaceGroup('${g.id}')"><b>${esc(g.icon)} ${esc(g.name)}</b><small style="display:block;color:var(--muted)">${(g.members||[]).length}人</small></button>`).join('');
+  const g=getWorkspaceGroup(); workspaceChatTitle.textContent=g?`${g.icon} ${g.name} のチャット`:'チャット';
+  const msgs=data.chat.filter(x=>x.groupId===currentWorkspaceGroupId); workspaceMessages.innerHTML=msgs.length?msgs.map(m=>`<div class="bubble ${m.me?'me':''}"><small style="display:block;font-size:9px;color:var(--muted);margin-bottom:3px">${esc(m.sender||'メンバー')}</small>${esc(m.text)}</div>`).join(''):'<div class="bubble">このグループのメッセージはまだありません。</div>'; workspaceMessages.scrollTop=workspaceMessages.scrollHeight;
+}
+function sendWorkspaceChat(){const txt=workspaceChatInput.value.trim();if(!txt)return;data.chat.push({groupId:currentWorkspaceGroupId,sender:'和樹',text:txt,me:true,time:new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})});persist();workspaceChatInput.value='';renderWorkspaceChat();}
 
 // ------------------------------------
 // チャット機能 (全グループ対応)
